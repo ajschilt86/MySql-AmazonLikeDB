@@ -22,7 +22,7 @@ connection.connect((err) => {
 function displayAll() {
     connection.query("SELECT * FROM products", function (err, results) {
         for (var i in results) {
-            console.log("=====================================================");
+            console.log("\n=====================================================");
             console.log("Product ID: " + results[i].item_id);
             console.log("Product Name: " + results[i].product_name);
             console.log("Department: " + results[i].department_name);
@@ -56,7 +56,6 @@ function searchItem() {
         {
             name: "choices",
             message: "Choose a product by ID"
-
         }
     ]).then(function (answers) {
         productId(answers.choices);
@@ -66,14 +65,11 @@ function searchItem() {
             {
                 name: "howMany",
                 message: "How many do you want to buy?"
-
             }
         ]).then(function (howManyAnswer) {
             connection.query("SELECT * FROM products WHERE item_id =" + "'" + answers.choices + "'", function (err, results) {
                 if (howManyAnswer.howMany <= results[0].stock_quantity) {
                     var remainingQuantity = results[0].stock_quantity - howManyAnswer.howMany;
-
-
                     var saleTotal = howManyAnswer.howMany * results[0].price;
                     inquirer.prompt([
 
@@ -96,17 +92,12 @@ function searchItem() {
                             searchItem();
                         }
                     })
-
-
-
                 } else {
                     console.log("we do not have that many in stock, sorry!");
                     searchItem();
                 }
             })
-
         })
-
     })
 }
 
