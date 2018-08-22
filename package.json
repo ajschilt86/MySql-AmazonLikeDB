@@ -1,0 +1,25 @@
+{
+  "name": "mysql-amazonlikedb",
+  "version": "1.0.0",
+  "description": "Amazon-like storefront with the MySQL. The app will take in orders from customers and deplete stock from the store's inventory.",
+  "main": "bamazonCustomer.js",
+  "dependencies": {
+    "dotenv": "^6.0.0",
+    "inquirer": "^6.1.0",
+    "mysql": "^2.16.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ajschilt86/MySql-AmazonLikeDB.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ajschilt86/MySql-AmazonLikeDB/issues"
+  },
+  "homepage": "https://github.com/ajschilt86/MySql-AmazonLikeDB#readme"
+}
