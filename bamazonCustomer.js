@@ -45,19 +45,10 @@ function productId(query) {
         console.log("Amount in Stock: " + results[0].stock_quantity);
         console.log("=====================================================");
     })
-
 }
 
-
-
-
-// productId("1");
-
 displayAll();
-
-
 searchItem();
-
 function searchItem() {
 
     inquirer.prompt([
@@ -79,26 +70,38 @@ function searchItem() {
             }
         ]).then(function (howManyAnswer) {
             connection.query("SELECT * FROM products WHERE item_id =" + "'" + answers.choices + "'", function (err, results) {
-                if (howManyAnswer.howMany < results[0].stock_quantity) {
+                if (howManyAnswer.howMany <= results[0].stock_quantity) {
                     var remainingQuantity = results[0].stock_quantity - howManyAnswer.howMany;
 
-                    connection.query("UPDATE products SET stock_quantity WHERE item_id - " + remainingQuantity + ";", function (err, stockRes) {
-                        var saleTotal = howManyAnswer.howMany * results[0].price;
-                        inquirer.prompt([
 
-                            {
-                                name: "canYouPay",
-                                message: "Your total is " + saleTotal + ", is this correct?"
+                    var saleTotal = howManyAnswer.howMany * results[0].price;
+                    inquirer.prompt([
 
-                            }
-                        ]).then(function (checkOut) {
-                            if (saleTotal = checkOut.canYouPay) {
-                                console.log("thank you for your purchase");
-                            }
-                        })
-
+                        {
+                            type: "list",
+                            name: "canYouPay",
+                            message: "Your total is " + saleTotal + ", is this correct?",
+                            choices: ["Yes", "No"]
+                        }
+                    ]).then(function (checkOut) {
+                        if (checkOut.canYouPay === "Yes") {
+                            console.log("thank you for your purchase of " + results[0].product_name);
+                            connection.query("UPDATE products SET stock_quantity = " + remainingQuantity + " WHERE item_id = " + answers.choices + ";", function (err, stockRes) { })
+                            displayAll();
+                            searchItem();
+                        }
+                        if (checkOut.canYouPay === "No") {
+                            console.log("Thanks for looking at our goods!");
+                            displayAll();
+                            searchItem();
+                        }
                     })
 
+
+
+                } else {
+                    console.log("we do not have that many in stock, sorry!");
+                    searchItem();
                 }
             })
 
