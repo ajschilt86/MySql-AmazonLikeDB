@@ -76,13 +76,40 @@ function searchItem() {
                         if (checkOut.canYouPay === "Yes") {
                             console.log("thank you for your purchase of " + results[0].product_name);
                             connection.query("UPDATE products SET stock_quantity = " + remainingQuantity + " WHERE item_id = " + answers.choices + ";", function (err, stockRes) { })
-                            displayAll();
-                            searchItem();
+
+                            inquirer.prompt([
+                                {
+                                    type: "list",
+                                    name: "lookAtMore",
+                                    message: "Would you like to look at more goods?",
+                                    choices: ["Yes", "No"]
+                                }
+                            ]).then(function (lookBack) {
+                                if (lookBack.lookAtMore === "Yes") {
+                                    displayAll();
+                                } 
+                                if (lookBack.lookAtMore === "No") {
+                                    return false;
+                                }
+                            })
                         }
                         if (checkOut.canYouPay === "No") {
                             console.log("Thanks for looking at our goods!");
-                            displayAll();
-                            searchItem();
+                            inquirer.prompt([
+                                {
+                                    type: "list",
+                                    name: "lookAtMore",
+                                    message: "Would you like to look at more goods?",
+                                    choices: ["Yes", "No"]
+                                }
+                            ]).then(function (lookBack) {
+                                if (lookBack.lookAtMore === "Yes") {
+                                    displayAll();
+                                } 
+                                if (lookBack.lookAtMore === "No") {
+                                    return false;
+                                }
+                            })                            
                         }
                     })
                 } else {
