@@ -87,9 +87,9 @@ function searchItem() {
                             ]).then(function (lookBack) {
                                 if (lookBack.lookAtMore === "Yes") {
                                     displayAll();
-                                } 
+                                }
                                 if (lookBack.lookAtMore === "No") {
-                                    return false;
+                                    process.exit(1)
                                 }
                             })
                         }
@@ -105,11 +105,11 @@ function searchItem() {
                             ]).then(function (lookBack) {
                                 if (lookBack.lookAtMore === "Yes") {
                                     displayAll();
-                                } 
-                                if (lookBack.lookAtMore === "No") {
-                                    return false;
                                 }
-                            })                            
+                                if (lookBack.lookAtMore === "No") {
+                                    process.exit(1)
+                                }
+                            })
                         }
                     })
                 } else {
