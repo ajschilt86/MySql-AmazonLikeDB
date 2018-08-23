@@ -52,13 +52,25 @@ function searchItem() {
     inquirer.prompt([
         {
             name: "choices",
-            message: "Choose a product by ID"
+            message: "Choose a product by ID",
+            validate: function (value) {
+                if (isNaN(value) === false) {
+                    return true;
+                }
+                return false;
+            }
         }
     ]).then(function (answers) {
         inquirer.prompt([
             {
                 name: "howMany",
-                message: "How many do you want to buy?"
+                message: "How many asteroids do you want to buy?",
+                validate: function (value) {
+                    if (isNaN(value) === false) {
+                        return true;
+                    }
+                    return false;
+                }
             }
         ]).then(function (howManyAnswer) {
             connection.query("SELECT * FROM products WHERE item_id =" + "'" + answers.choices + "'", function (err, results) {
@@ -81,7 +93,7 @@ function searchItem() {
                                 {
                                     type: "list",
                                     name: "lookAtMore",
-                                    message: "Would you like to look at more goods?",
+                                    message: "Would you like to look at more asteroids?",
                                     choices: ["Yes", "No"]
                                 }
                             ]).then(function (lookBack) {
@@ -89,17 +101,18 @@ function searchItem() {
                                     displayAll();
                                 }
                                 if (lookBack.lookAtMore === "No") {
+                                    console.log("Thank you for browsing our asteroids!");
                                     process.exit(1)
                                 }
                             })
                         }
                         if (checkOut.canYouPay === "No") {
-                            console.log("Thanks for looking at our goods!");
+                            console.log("Thanks for looking at our asteroids!");
                             inquirer.prompt([
                                 {
                                     type: "list",
                                     name: "lookAtMore",
-                                    message: "Would you like to look at more goods?",
+                                    message: "Would you like to look at more asteroids?",
                                     choices: ["Yes", "No"]
                                 }
                             ]).then(function (lookBack) {
@@ -107,13 +120,14 @@ function searchItem() {
                                     displayAll();
                                 }
                                 if (lookBack.lookAtMore === "No") {
+                                    console.log("Thank you for browsing our asteroids!");
                                     process.exit(1)
                                 }
                             })
                         }
                     })
                 } else {
-                    console.log("we do not have that many in stock, sorry!");
+                    console.log("we do not have that many in asteroids stock, sorry!");
                     searchItem();
                 }
             })
