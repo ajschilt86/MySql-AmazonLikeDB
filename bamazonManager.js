@@ -72,14 +72,14 @@ function manager() {
                 connection.query("SELECT * FROM products WHERE item_id =" + "'" + addInventory.chooseToAdd + "'", function (err, results) {
                     var addToQuantity = parseInt(results[0].stock_quantity) + parseInt(addInventory.chooseAmount);
                     connection.query("UPDATE products SET stock_quantity = " + addToQuantity + " WHERE item_id = " + addInventory.chooseToAdd + ";", function (err, stockRes) {
-                        console.log("You added new inventory, See below");
-                        console.log("\n=====================================================");
-                        console.log("Product ID: " + results[0].item_id);
-                        console.log("Product Name: " + results[0].product_name);
-                        console.log("Department: " + results[0].department_name);
-                        console.log("Price: $" + results[0].price);
-                        console.log("Amount in Stock: " + results[0].stock_quantity);
-                        console.log("=====================================================");
+                        // console.log("You added new inventory, See below");
+                        // console.log("\n=====================================================");
+                        // console.log("Product ID: " + results[0].item_id);
+                        // console.log("Product Name: " + results[0].product_name);
+                        // console.log("Department: " + results[0].department_name);
+                        // console.log("Price: $" + results[0].price);
+                        // console.log("Amount in Stock: " + results[0].stock_quantity);
+                        // console.log("=====================================================");
                         manager();
                     })
                 })
